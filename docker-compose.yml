@@ -11,8 +11,7 @@ services:
       MYSQL_PASSWORD: cmspass
     ports:
       - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
+
 
   drupal:
     image: drupal:10-apache
@@ -35,7 +34,7 @@ services:
       - "8081:80"
     depends_on:
       - db
-      
+
     command: bash -c "apt-get update && apt-get install -y unzip git && docker-php-ext-install pdo pdo_mysql mysqli && /usr/sbin/apache2ctl -D FOREGROUND"
 
 volumes:
