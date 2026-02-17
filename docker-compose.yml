@@ -15,24 +15,28 @@ services:
       - db_data:/var/lib/mysql
 
   drupal:
-    build: ./drupal
+    image: drupal:10-apache
     container_name: drupal_cms
     ports:
       - "8080:80"
     depends_on:
       - db
-    volumes:
-      - ./drupal/html:/var/www/html
+    environment:
+      DRUPAL_DB_HOST: db
+      DRUPAL_DB_NAME: cmsdb
+      DRUPAL_DB_USER: cmsuser
+      DRUPAL_DB_PASSWORD: cmspass
+
 
   typo3:
-    build: ./typo3
+    image: php:8.2-apache
     container_name: typo3_cms
     ports:
       - "8081:80"
     depends_on:
       - db
-    volumes:
-      - ./typo3/html:/var/www/html
+      
+    command: bash -c "apt-get update && apt-get install -y unzip git && docker-php-ext-install pdo pdo_mysql mysqli && /usr/sbin/apache2ctl -D FOREGROUND"
 
 volumes:
   db_data:
