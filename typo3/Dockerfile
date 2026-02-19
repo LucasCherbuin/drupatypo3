@@ -14,17 +14,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_mysql mbstring gd xml opcache \
     && a2enmod rewrite
 
-# Copier le code TYPO3 dans le conteneur
-COPY public/ /var/www/html/
-
-# Définir le répertoire de travail
-WORKDIR /var/www/html
-
-# Donner les droits d'écriture nécessaires
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
 
 # Exposer le port 80
 EXPOSE 80
 
 # docker build -t typo3 ./typo3 
+# docker compose exec typo3 bash

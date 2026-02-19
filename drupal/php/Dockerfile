@@ -29,3 +29,4 @@ RUN chown -R www-data:www-data /var/www/html \
 EXPOSE 80
 
 # docker build -t drupal ./drupal 
+# docker compose exec drupal bash
